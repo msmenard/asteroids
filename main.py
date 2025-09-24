@@ -3,6 +3,8 @@ from constants import *
 from player import Player
 from asteroidfield import AsteroidField
 from asteroid import Asteroid
+from circleshape import CircleShape
+import sys
 
 def main():
     pygame.init()
@@ -31,11 +33,15 @@ def main():
                 return
 
         updatable.update(dt)
+        for asteroid in asteroids:
+            if asteroid.collisions(player) == True:
+                print("Game Over!")
+                sys.exit()
         screen.fill("black")
         for thing in drawable:
             thing.draw(screen)
         pygame.display.flip()
-        print(len(asteroids))
+
 
         dt = clock.tick(60) / 1000
 
